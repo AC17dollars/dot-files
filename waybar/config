@@ -1,0 +1,88 @@
+{
+	"layer": "top",
+	// Using margin-bottom with a negative value in order to reduce the space between Hyprland window and waybar
+	"margin-bottom": -10,
+	"margin-top": 5,
+	"modules-left": ["custom/launcher", "cpu","memory","clock","custom/spotify"],
+	"modules-center": ["hyprland/workspaces"],
+	"modules-right": ["tray","network","backlight","pulseaudio", "battery", "custom/notifs"],
+	
+	"pulseaudio": {
+		"tooltip": false,
+		"scroll-step": 1,
+		"format": "{icon} {volume}%",
+		"format-muted": "Muted {volume}%",
+		"on-click":"pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"format-icons": {
+			  "default": ["", "", ""]
+		}
+	},
+	"network": {
+		//  "interface": "wlp2*", // (Optional) To force the use of this interface
+		    "format-wifi": "",
+		    "format-ethernet": "",
+		    "tooltip-format": "{essid} ({signalStrength}%)",
+		    "format-linked": "{ifname} (No IP) ",
+		    "format-disconnected": "⚠",
+		    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+		},
+	  "backlight": {
+		    "tooltip": false,
+		    "format": "󰖨 {}%",
+		    "on-scroll-up": "brightnessctl s +1",
+		    "on-scroll-down": "brightnessctl  s 1-"
+	  },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+	      "format-full": " 100%",
+        "format-alt": "{icon}  {time}",
+        "format-icons": ["", "", "", "", ""]
+    },
+	  "tray":{
+		  "icon-size":18,
+		  "spacing": 10
+	  },
+    "clock": {
+        "format": "󰥔 {:%H:%M  %d/%m/%Y}"
+    },
+    "cpu": {
+        "interval": 15,
+        "format": " {}%",
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 30,
+        "format": " {}%",
+        "max-length": 10
+    },
+    "custom/spotify": {
+    	  "interval": 5,
+	      "return-type": "json",
+	      "exec": "~/.config/waybar/scripts/spotify.sh",
+	      "exec-if": "pgrep spotify",
+	      "escape": true
+    },
+    "custom/launcher":{
+        "format": " ",
+        "on-click-right": "rofi -show powermenu -modi powermenu:~/.config/rofi/powermenu/rofi-power-menu",
+        "on-click": "pkill rofi || rofi -show window"
+    },
+    "custom/notifs":{
+        "format": " ",
+        "on-click": "swaync-client -t -sw",
+    },
+    // The code following below is given in the great documentation for Waybar status bar under Useful Utilities in Hyprland wiki
+    "hyrpland/workspaces": {
+    	  "format": "{icon}",
+	      "on-scroll-up": "hyprctl dispatch workspace e+1",
+	      "on-scroll-down": "hyprctl dispatch workspace e-1",
+	      "on-click": "activate"
+	  }
+}

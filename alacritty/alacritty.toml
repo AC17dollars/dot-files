@@ -1,0 +1,17 @@
+import = [
+    "~/.config/alacritty/themes/gruvbox_dark.toml"
+]
+
+[window]
+opacity = 0.85
+
+
+[font]
+[font.normal]
+family = "MesloLGS NF"
+
+
+[cursor]
+[cursor.style]
+shape = "Underline"
+blinking = "On"
